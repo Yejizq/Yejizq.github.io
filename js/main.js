@@ -49,12 +49,15 @@ function initSidebar() {
   const descEl = document.getElementById('sidebar-desc');
   if (descEl) descEl.textContent = cfg.author.description;
 
-  // 社交链接 — 从 config.js 动态生成
+  // 社交链接 — 从 config.js 动态生成（邮箱显示为纯文本）
   const socialEl = document.getElementById('sidebar-social');
   if (socialEl) {
-    socialEl.innerHTML = cfg.social.map(s => `
-      <a class="social-btn" href="${s.url}" target="_blank" rel="noopener"><i class="${s.icon}"></i> ${s.label}</a>
-    `).join('');
+    socialEl.innerHTML = cfg.social.map(s => {
+      if (s.label === 'Email') {
+        return `<span class="social-btn"><i class="${s.icon}"></i> ${s.url.replace('mailto:', '')}</span>`;
+      }
+      return `<a class="social-btn" href="${s.url}" target="_blank" rel="noopener"><i class="${s.icon}"></i> ${s.label}</a>`;
+    }).join('');
   }
 
   // 公告
@@ -95,22 +98,19 @@ function initSidebar() {
     daysEl.textContent = Math.floor((new Date() - since) / (1000 * 60 * 60 * 24));
   }
 
-  // 关于页面社交链接
+  // 关于页面社交链接（邮箱显示为纯文本）
   const aboutSocial = document.getElementById('about-social');
   if (aboutSocial) {
     aboutSocial.innerHTML = cfg.social.map(s => {
-      let iconClass = s.icon;
-      let displayText = '';
-      if (s.label === 'GitHub') {
-        displayText = 'GitHub：<a href="' + s.url + '" target="_blank">' + s.url.replace('https://github.com/', '') + '</a>';
-      } else if (s.label === 'Email') {
-        displayText = 'Email：<a href="' + s.url + '">' + s.url.replace('mailto:', '') + '</a>';
+      if (s.label === 'Email') {
+        return '<p><i class="' + s.icon + '"></i> Email：' + s.url.replace('mailto:', '') + '</p>';
+      } else if (s.label === 'GitHub') {
+        return '<p><i class="' + s.icon + '"></i> GitHub：<a href="' + s.url + '" target="_blank">' + s.url.replace('https://github.com/', '') + '</a></p>';
       } else if (s.label === 'B站') {
-        displayText = 'B站：<a href="' + s.url + '" target="_blank">点击访问</a>';
+        return '<p><i class="' + s.icon + '"></i> B站：<a href="' + s.url + '" target="_blank">点击访问</a></p>';
       } else {
-        displayText = s.label + '：<a href="' + s.url + '" target="_blank">' + s.url + '</a>';
+        return '<p><i class="' + s.icon + '"></i> ' + s.label + '：<a href="' + s.url + '" target="_blank">' + s.url + '</a></p>';
       }
-      return '<p><i class="' + iconClass + '"></i> ' + displayText + '</p>';
     }).join('');
   }
 }
