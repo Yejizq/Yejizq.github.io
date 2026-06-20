@@ -7,7 +7,7 @@ const SITE_CONFIG = {
   // ----- 网站信息 -----
   siteName: 'zq_electric',
   siteUrl: 'https://yejizq.github.io',
-  siteSince: 2026,
+  siteSince: '2026-06-20',  // 建站日期 (格式: YYYY-MM-DD)
   beian: '', // 备案号（如需要）
 
   // ----- 作者信息 -----

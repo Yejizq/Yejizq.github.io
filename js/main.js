@@ -91,7 +91,7 @@ function initSidebar() {
   // 运行天数
   const daysEl = document.getElementById('stat-days');
   if (daysEl) {
-    const since = new Date(cfg.siteSince, 0, 1);
+    const since = new Date(cfg.siteSince);
     daysEl.textContent = Math.floor((new Date() - since) / (1000 * 60 * 60 * 24));
   }
 
@@ -99,13 +99,18 @@ function initSidebar() {
   const aboutSocial = document.getElementById('about-social');
   if (aboutSocial) {
     aboutSocial.innerHTML = cfg.social.map(s => {
-      const iconClass = s.icon.includes('github') ? 'fab fa-github' :
-                        s.icon.includes('envelope') ? 'fas fa-envelope' :
-                        s.icon.includes('bilibili') ? 'fab fa-bilibili' : s.icon;
-      const labelText = s.label === 'GitHub' ? 'GitHub：' + s.url.replace('https://github.com/', 'github.com/') :
-                        s.label === 'Email' ? 'Email：' + s.url.replace('mailto:', '') :
-                        s.label === 'B站' ? 'B站：' + s.url : s.label;
-      return `<p><i class="${iconClass}"></i> ${labelText.startsWith('GitHub') || labelText.startsWith('Email') || labelText.startsWith('B站') ? labelText : s.label}：<a href="${s.url}" target="_blank">${s.label}</a></p>`;
+      let iconClass = s.icon;
+      let displayText = '';
+      if (s.label === 'GitHub') {
+        displayText = 'GitHub：<a href="' + s.url + '" target="_blank">' + s.url.replace('https://github.com/', '') + '</a>';
+      } else if (s.label === 'Email') {
+        displayText = 'Email：<a href="' + s.url + '">' + s.url.replace('mailto:', '') + '</a>';
+      } else if (s.label === 'B站') {
+        displayText = 'B站：<a href="' + s.url + '" target="_blank">点击访问</a>';
+      } else {
+        displayText = s.label + '：<a href="' + s.url + '" target="_blank">' + s.url + '</a>';
+      }
+      return '<p><i class="' + iconClass + '"></i> ' + displayText + '</p>';
     }).join('');
   }
 }
