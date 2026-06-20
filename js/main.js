@@ -34,9 +34,42 @@ function highlightCurrentNav() {
 
 /* ----- 侧边栏动态填充 ----- */
 function initSidebar() {
+  const cfg = SITE_CONFIG;
+
+  // 作者卡片 — 从 config.js 动态读取
+  const avatarEl = document.getElementById('sidebar-avatar');
+  if (avatarEl) {
+    avatarEl.src = cfg.author.avatar;
+    avatarEl.alt = cfg.author.name;
+  }
+  const nameEl = document.getElementById('sidebar-name');
+  if (nameEl) nameEl.textContent = cfg.author.name;
+  const bioEl = document.getElementById('sidebar-bio');
+  if (bioEl) bioEl.innerHTML = cfg.author.bio.replace(/\n/g, '<br>');
+  const descEl = document.getElementById('sidebar-desc');
+  if (descEl) descEl.textContent = cfg.author.description;
+
+  // 社交链接 — 从 config.js 动态生成
+  const socialEl = document.getElementById('sidebar-social');
+  if (socialEl) {
+    socialEl.innerHTML = cfg.social.map(s => `
+      <a class="social-btn" href="${s.url}" target="_blank" rel="noopener"><i class="${s.icon}"></i> ${s.label}</a>
+    `).join('');
+  }
+
   // 公告
   const announceEl = document.getElementById('sidebar-announcement');
-  if (announceEl) announceEl.textContent = SITE_CONFIG.announcement;
+  if (announceEl) announceEl.textContent = cfg.announcement;
+
+  // 站点名
+  const logoEls = document.querySelectorAll('.logo');
+  logoEls.forEach(el => { el.innerHTML = '⚡ ' + cfg.siteName; });
+
+  // 页脚
+  const footerEls = document.querySelectorAll('.footer p');
+  footerEls.forEach(el => {
+    el.innerHTML = '&copy; ' + new Date().getFullYear() + ' ' + cfg.footerText;
+  });
 
   // 最近文章
   const recentEl = document.getElementById('sidebar-recent');
@@ -54,6 +87,27 @@ function initSidebar() {
   if (catCountEl) catCountEl.textContent = getCategories().length;
   const tagCountEl = document.getElementById('stat-tags');
   if (tagCountEl) tagCountEl.textContent = getTags().length;
+
+  // 运行天数
+  const daysEl = document.getElementById('stat-days');
+  if (daysEl) {
+    const since = new Date(cfg.siteSince, 0, 1);
+    daysEl.textContent = Math.floor((new Date() - since) / (1000 * 60 * 60 * 24));
+  }
+
+  // 关于页面社交链接
+  const aboutSocial = document.getElementById('about-social');
+  if (aboutSocial) {
+    aboutSocial.innerHTML = cfg.social.map(s => {
+      const iconClass = s.icon.includes('github') ? 'fab fa-github' :
+                        s.icon.includes('envelope') ? 'fas fa-envelope' :
+                        s.icon.includes('bilibili') ? 'fab fa-bilibili' : s.icon;
+      const labelText = s.label === 'GitHub' ? 'GitHub：' + s.url.replace('https://github.com/', 'github.com/') :
+                        s.label === 'Email' ? 'Email：' + s.url.replace('mailto:', '') :
+                        s.label === 'B站' ? 'B站：' + s.url : s.label;
+      return `<p><i class="${iconClass}"></i> ${labelText.startsWith('GitHub') || labelText.startsWith('Email') || labelText.startsWith('B站') ? labelText : s.label}：<a href="${s.url}" target="_blank">${s.label}</a></p>`;
+    }).join('');
+  }
 }
 
 /* ----- 首页卡片渲染 ----- */

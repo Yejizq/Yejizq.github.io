@@ -6,7 +6,7 @@
 const SITE_CONFIG = {
   // ----- 网站信息 -----
   siteName: 'zq_electric',
-  siteUrl: 'https://zq-electric.github.io',
+  siteUrl: 'https://yejizq.github.io',
   siteSince: 2026,
   beian: '', // 备案号（如需要）
 
