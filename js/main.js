@@ -54,7 +54,7 @@ function initSidebar() {
   if (socialEl) {
     socialEl.innerHTML = cfg.social.map(s => {
       if (s.label === 'Email') {
-        return `<span class="social-btn"><i class="${s.icon}"></i> ${s.url.replace('mailto:', '')}</span>`;
+        return `<span style="font-size:0.85rem;color:var(--text-light);word-break:break-all;"><i class="${s.icon}"></i> ${s.url.replace('mailto:', '')}</span>`;
       }
       return `<a class="social-btn" href="${s.url}" target="_blank" rel="noopener"><i class="${s.icon}"></i> ${s.label}</a>`;
     }).join('');
