@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>友链 | zq_electric</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<header class="header">
+  <a href="index.html" class="logo">⚡ zq_electric</a>
+  <button class="nav-toggle" aria-label="菜单">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+    <li><a href="search.html"><i class="fas fa-search"></i> 搜索</a></li>
+    <li><a href="projects.html"><i class="fas fa-microchip"></i> 项目</a></li>
+    <li><a href="categories.html"><i class="fas fa-folder-open"></i> 分类</a></li>
+    <li><a href="archives.html"><i class="fas fa-archive"></i> 归档</a></li>
+    <li><a href="friends.html" class="active"><i class="fas fa-link"></i> 友链</a></li>
+    <li><a href="tags.html"><i class="fas fa-tags"></i> 标签</a></li>
+    <li><a href="about.html"><i class="fas fa-user"></i> 关于</a></li>
+  </ul>
+</header>
+
+<div class="page-wrapper">
+  <main class="main">
+    <div class="page-card">
+      <h1>🔗 友情链接</h1>
+      <p style="color:var(--text-light);margin-bottom:8px;">欢迎交换友链！请联系我（邮件 / GitHub Issues）提交你的博客信息。</p>
+    </div>
+    <div class="flink-grid" id="flink-grid" style="margin-top:20px;"></div>
+  </main>
+</div>
+
+<footer class="footer"><p>&copy; 2026 zq_electric | 记录嵌入式开发的点点滴滴</p></footer>
+<script src="js/config.js"></script><script src="js/posts.js"></script><script src="js/main.js"></script>
+<script>renderFriends();</script>
+</body>
+</html>

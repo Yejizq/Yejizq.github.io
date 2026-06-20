@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="zq_electric 的个人技术博客 — 嵌入式开发 | 电子设计 | 开源硬件">
+  <meta name="keywords" content="嵌入式, STM32, 电子, PCB, 物联网, ESP32">
+  <title>zq_electric | 嵌入式开发 & 电子设计</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== 导航栏 ===== -->
+<header class="header">
+  <a href="index.html" class="logo">⚡ zq_electric</a>
+  <button class="nav-toggle" aria-label="菜单">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+    <li><a href="search.html"><i class="fas fa-search"></i> 搜索</a></li>
+    <li><a href="projects.html"><i class="fas fa-microchip"></i> 项目</a></li>
+    <li><a href="categories.html"><i class="fas fa-folder-open"></i> 分类</a></li>
+    <li><a href="archives.html"><i class="fas fa-archive"></i> 归档</a></li>
+    <li><a href="friends.html"><i class="fas fa-link"></i> 友链</a></li>
+    <li><a href="tags.html"><i class="fas fa-tags"></i> 标签</a></li>
+    <li><a href="about.html"><i class="fas fa-user"></i> 关于</a></li>
+  </ul>
+</header>
+
+<!-- ===== 主体 ===== -->
+<div class="page-wrapper">
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <!-- 作者卡片 -->
+      <div class="sidebar-card author-card">
+        <img class="avatar" src="img/avatar.svg" alt="头像" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23333%22 width=%22100%22 height=%22100%22 rx=%2250%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2240%22>👤</text></svg>'">
+        <div class="author-name">zq_electric</div>
+        <div class="author-bio">嵌入式开发工程师<br>STM32 | PCB | IoT | 开源硬件</div>
+        <div class="social-links">
+          <a class="social-btn" href="https://github.com/zq_electric" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+          <a class="social-btn" href="mailto:zq_electric@example.com"><i class="fas fa-envelope"></i> Email</a>
+          <a class="social-btn" href="https://space.bilibili.com/XXXXXX" target="_blank" rel="noopener"><i class="fab fa-bilibili"></i> B站</a>
+        </div>
+      </div>
+
+      <!-- 公告卡片 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📢 公告</div>
+        <div id="sidebar-announcement" style="font-size:0.85rem;color:var(--text-light);line-height:1.6;"></div>
+      </div>
+
+      <!-- 最新文章 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📝 最新文章</div>
+        <ul id="sidebar-recent"></ul>
+      </div>
+
+      <!-- 站点统计 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📊 站点统计</div>
+        <div class="stat-item"><span>文章总数</span><span id="stat-posts">0</span></div>
+        <div class="stat-item"><span>分类数目</span><span id="stat-categories">0</span></div>
+        <div class="stat-item"><span>标签数目</span><span id="stat-tags">0</span></div>
+        <div class="stat-item"><span>运行天数</span><span id="stat-days">0</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main class="main">
+    <div class="card-grid" id="post-grid"></div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer">
+  <p>&copy; 2026 zq_electric | 记录嵌入式开发的点点滴滴</p>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/posts.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // 首页渲染
+  const params = new URLSearchParams(window.location.search);
+  const page = parseInt(params.get('page')) || 1;
+  renderCardGrid('post-grid', POSTS, page);
+
+  // 运行天数
+  const since = new Date(SITE_CONFIG.siteSince, 0, 1);
+  const days = Math.floor((new Date() - since) / (1000 * 60 * 60 * 24));
+  document.getElementById('stat-days').textContent = days;
+</script>
+
+</body>
+</html>
